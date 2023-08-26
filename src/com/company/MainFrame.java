@@ -1,19 +1,18 @@
 package com.company;
 
 import javax.swing.*;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
-
-    private MainMenu mainMenuPage;
-    private FirstPage firstPage;
-    private SecondPage secondPage;
+    private final MainMenu mainMenuPage;
+    private final FirstPage firstPage;
+    private final SecondPage secondPage;
 
     public MainFrame() {
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("BITLAB Application");
+        setTitle("Simple notebook application");
         setSize(500, 500);
+        setLocationRelativeTo(null);
         setLayout(null);
 
         mainMenuPage = new MainMenu(this);
@@ -27,7 +26,6 @@ public class MainFrame extends JFrame {
         secondPage = new SecondPage(this);
         secondPage.setVisible(false);
         add(secondPage);
-
     }
 
     public MainMenu getMainMenuPage() {
@@ -42,7 +40,7 @@ public class MainFrame extends JFrame {
         return secondPage;
     }
 
-    public Students[] getStudents() {
-        return firstPage.getStudents();
+    public ArrayList<Students> getStudents() {
+        return firstPage.getStudentsList();
     }
 }

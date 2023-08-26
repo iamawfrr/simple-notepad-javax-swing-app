@@ -7,14 +7,20 @@ public class Students {
     private String faculty;
     private String group;
 
-    public Students() {
-    }
-
-    public Students(String name, String surname, String faculty, String group) {
+    public Students(int id, String name, String surname, String faculty, String group) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.faculty = faculty;
         this.group = group;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

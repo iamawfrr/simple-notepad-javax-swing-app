@@ -1,59 +1,47 @@
 package com.company;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MainMenu extends JPanel {
-
-    private MainFrame parent;
-
-    private JButton firstPageButton;
-    private JButton secondPageButton;
-    private JButton exitButton;
-
     public MainMenu(MainFrame parent) {
-
-        this.parent = parent;
-
         setSize(500, 500);
         setLayout(null);
 
-        firstPageButton = new JButton("ADD STUDENT");
+        JButton firstPageButton = new JButton("ADD STUDENT");
         firstPageButton.setSize(300, 30);
         firstPageButton.setLocation(100, 100);
         add(firstPageButton);
-        firstPageButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                parent.getMainMenuPage().setVisible(false);
-                parent.getFirstPage().setVisible(true);
-            }
+        firstPageButton.addActionListener(actionEvent -> {
+            parent.getMainMenuPage().setVisible(false);
+            parent.getFirstPage().setVisible(true);
         });
 
-        secondPageButton = new JButton("LIST STUDENTS");
+        JButton secondPageButton = getSecondPageButton(parent);
+        add(secondPageButton);
+
+        JButton exitButton = new JButton("EXIT");
+        exitButton.setSize(300, 30);
+        exitButton.setLocation(100, 200);
+        add(exitButton);
+        exitButton.addActionListener(actionEvent -> System.exit(0));
+    }
+
+    private static JButton getSecondPageButton(MainFrame parent) {
+        JButton secondPageButton = new JButton("LIST STUDENTS");
         secondPageButton.setSize(300, 30);
         secondPageButton.setLocation(100, 150);
-        add(secondPageButton);
-        secondPageButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                parent.getSecondPage().generateTable(parent.getStudents());
+        secondPageButton.addActionListener(actionEvent -> {
+            ArrayList<Students> studentsList = parent.getStudents();
+            boolean isDataEmpty = studentsList.isEmpty();
+            if (isDataEmpty) {
+                JOptionPane.showMessageDialog(null, "THE LIST OF STUDENTS IS EMPTY");
+            } else {
+                parent.getSecondPage().generateTable(studentsList);
                 parent.getMainMenuPage().setVisible(false);
                 parent.getSecondPage().setVisible(true);
             }
         });
-
-        exitButton = new JButton("EXIT");
-        exitButton.setSize(300, 30);
-        exitButton.setLocation(100, 200);
-        add(exitButton);
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.exit(0);
-            }
-        });
+        return secondPageButton;
     }
 }

@@ -1,103 +1,103 @@
 package com.company;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class FirstPage extends JPanel {
+    private final JTextField textField0;
+    private final JTextField textField1;
+    private final JTextField textField2;
+    private final JTextField textField3;
+    private final JComboBox facultyBox;
+    ArrayList<Students> studentsList = new ArrayList<>();
 
-    private MainFrame parent;
-
-    private JLabel label;
-    private JButton back;
-    private JButton add;
-    private JTextField textField;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JComboBox facultyBox;
-    private String[] faculties = {"Information", "Technologies", "Economics", "Mathematics"};
-    private Students[] students = new Students[5];
-
-    public Students[] getStudents() {
-        return students;
+    public ArrayList<Students> getStudentsList() {
+        return studentsList;
     }
 
     public FirstPage(MainFrame parent) {
-
-
-        this.parent = parent;
-
         setSize(500, 500);
         setLayout(null);
 
-        label = new JLabel("NAME:");
+        JLabel label = new JLabel("ID:");
         label.setSize(300, 30);
-        label.setLocation(100, 75);
+        label.setLocation(100, 35);
         add(label);
 
-        textField = new JTextField();
-        textField.setSize(200, 30);
-        textField.setLocation(170, 75);
-        add(textField);
+        textField0 = new JTextField();
+        textField0.setSize(200, 30);
+        textField0.setLocation(170, 35);
+        add(textField0);
+
+        label = new JLabel("NAME:");
+        label.setSize(300, 30);
+        label.setLocation(100, 80);
+        add(label);
+
+        textField1 = new JTextField();
+        textField1.setSize(200, 30);
+        textField1.setLocation(170, 80);
+        add(textField1);
 
         label = new JLabel("SURNAME:");
         label.setSize(300, 30);
-        label.setLocation(100, 120);
+        label.setLocation(100, 125);
         add(label);
 
         textField2 = new JTextField();
         textField2.setSize(200, 30);
-        textField2.setLocation(170, 120);
+        textField2.setLocation(170, 125);
         add(textField2);
 
         label = new JLabel("FACULTY:");
         label.setSize(300, 30);
-        label.setLocation(100, 175);
+        label.setLocation(100, 170);
         add(label);
 
+        String[] faculties = {"Information", "Technologies", "Economics", "Mathematics"};
         facultyBox = new JComboBox(faculties);
         facultyBox.setSize(200, 30);
-        facultyBox.setLocation(170, 175);
+        facultyBox.setLocation(170, 170);
         add(facultyBox);
 
         label = new JLabel("GROUP:");
         label.setSize(300, 30);
-        label.setLocation(100, 230);
+        label.setLocation(100, 215);
         add(label);
 
         textField3 = new JTextField();
         textField3.setSize(200, 30);
-        textField3.setLocation(170, 230);
+        textField3.setLocation(170, 215);
         add(textField3);
 
-        back = new JButton("BACK");
+        JButton back = new JButton("BACK");
         back.setSize(100, 30);
-        back.setLocation(300, 350);
+        back.setLocation(300, 300);
         add(back);
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                parent.getFirstPage().setVisible(false);
-                parent.getMainMenuPage().setVisible(true);
-            }
+        back.addActionListener(actionEvent -> {
+            parent.getFirstPage().setVisible(false);
+            parent.getMainMenuPage().setVisible(true);
         });
 
-        add = new JButton("ADD");
+        JButton add = new JButton("ADD");
         add.setSize(100, 30);
-        add.setLocation(100, 350);
+        add.setLocation(100, 300);
         add(add);
 
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String text = textField.getText();
-                String text2 = textField2.getText();
-                String faculty = (String) facultyBox.getSelectedItem();
-                String text3 = textField3.getText();
-                students = new Students[]{
-                        new Students(text, text2, faculty, text3),
-                };
-                textField.setText("");
+        add.addActionListener(e -> {
+            String idText = textField0.getText();
+            String text = textField1.getText();
+            String text2 = textField2.getText();
+            String faculty = (String) facultyBox.getSelectedItem();
+            String text3 = textField3.getText();
+
+            if (idText.isEmpty() || text.isEmpty() || text2.isEmpty() || text3.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "PLEASE, FILL IN ALL FIELDS");
+            } else {
+                int id = Integer.parseInt(idText);
+                studentsList.add(new Students(id, text, text2, faculty, text3));
+                textField0.setText("");
+                textField1.setText("");
                 textField2.setText("");
                 facultyBox.setSelectedIndex(0);
                 textField3.setText("");
