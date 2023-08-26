@@ -1,6 +1,6 @@
 ##### description:
 
-##### java SE course by Bitlab academy - module 2, task 2.
+##### java SE course by Bitlab academy - module 2, lesson 1, task 2.
 
 ##### a simple notepad application written using javax.swing;
 
